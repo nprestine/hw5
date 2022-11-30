@@ -19,5 +19,5 @@ std::set<std::string> wordle(
     const std::string& in,
     const std::string& floating,
     const std::set<std::string>& dict);
-
+void ycombinator(std::string input, unsigned int currIndex, std::string floatChars, const std::set<std::string>& dict, std::set<std::string>& possWords);
 #endif

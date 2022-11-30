@@ -40,8 +40,8 @@ void ycombinator(std::string input, unsigned int currIndex, std::string floating
     {
         if(floating.empty()) //no more floats to input
         {
-            std::set<std::string>::iterator finder = dict.find(input);
-            if(finder != dict.end()) //is it a valid word
+            auto check = dict.find(input);
+            if(check != dict.end()) //is it a valid word
             {
                 wordAnswers.insert(input); //if so then insert and return
             }
@@ -65,15 +65,16 @@ void ycombinator(std::string input, unsigned int currIndex, std::string floating
     {
         for(char character = 'a'; character <= 'z'; ++character)
         {
-            if(floating.find(character) == std::string::npos) //said letter DOES NOT exists
+            bool execute = find(floating.begin(), floating.end(), character) == floating.end();
+            if(execute)
             {
                 input[currIndex] = character;
                 ycombinator(input, currIndex+1, floating, dict, wordAnswers);
             }
             else
             {
-                string tmp = floating;
                 input[currIndex] = character;
+                string tmp = floating;
                 tmp.erase(floating.find(character),1);
                 ycombinator(input, currIndex+1, tmp, dict, wordAnswers);
             }
@@ -83,12 +84,11 @@ void ycombinator(std::string input, unsigned int currIndex, std::string floating
     {
         for(unsigned int q = 0; q < floating.size(); ++q)
         {
-            string tmp = floating;
             input[currIndex] = floating[q];
+            string tmp = floating;
             tmp.erase(q,1);
             ycombinator(input, currIndex+1, tmp, dict, wordAnswers);
         }
     }
-
 }
 
